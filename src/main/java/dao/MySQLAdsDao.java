@@ -2,6 +2,7 @@ package dao;
 
 import com.mysql.cj.jdbc.Driver;
 import models.Ad;
+import models.User;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,12 +65,29 @@ public class MySQLAdsDao implements Ads {
         );
     }
 
-    private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
+    public List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
             ads.add(extractAd(rs));
         }
         return ads;
+    }
+
+
+    public List<Ad> findByUser(Long userId) {
+        List<Ad> usersAds = new ArrayList<>();
+        String query = "SELECT * FROM ads WHERE user_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                usersAds.add(extractAd(rs));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a user by username", e);
+        }
+        return usersAds;
     }
 }
 

@@ -1,5 +1,9 @@
 package controllers;
 
+import dao.DaoFactory;
+import models.Ad;
+import models.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +18,11 @@ public class ViewProfileServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
+
+
+
+//        request.getSession().setAttribute("userId", Ad.getUserId());
+        request.setAttribute("ads", DaoFactory.getAdsDao().findByUser(userId));
         request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }
 }
