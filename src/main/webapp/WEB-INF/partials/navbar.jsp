@@ -29,6 +29,7 @@
                 <c:otherwise>
                     <li><a href="/ads/create">Create Ad</a></li>
                     <li><a href="/profile">View Profile</a></li>
+                    <li><a href="/updateProfile">Edit Profile</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </c:otherwise>
             </c:choose>
