@@ -75,5 +75,20 @@ public class MySQLUsersDao implements Users {
         );
     }
 
+
+    public User updateUser(String email, String userName) {
+        String query = "UPDATE users SET email = ? WHERE username = ?";
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, userName);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a user by user email", e);
+        }
+        return null;
+    }
+
 }
 
