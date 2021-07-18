@@ -102,4 +102,37 @@ public class VerifyData {
 
         return true;
     }
+
+    public static boolean checkUserInputAndGenerateErrorMessages(HttpServletRequest request, HttpServletResponse response, String email, String password, String passwordConfirmation, String jsp) throws ServletException, IOException {
+        boolean userEmailNotExist = VerifyData.userEmailNotExist(email);
+
+        boolean isValidEmail = VerifyData.isValidEmail(email);
+
+        String userEmailExistsMessage = "An user with this email already exists, please try again.";
+        String userPasswordsDoNotMatchMessage = "Password does not match, please enter matching confirmation password";
+        String invalidEmailMessage = email + " is not a valid email, please enter a valid email";
+        String alert = " <span style=\"color:red\">*</span>";
+
+        if (!isValidEmail || !userEmailNotExist) {
+            if (!isValidEmail) {
+                request.setAttribute("userEmailExistsHTML", alert);
+                request.setAttribute("invalidEmailMessage", invalidEmailMessage);
+            }
+            if (!userEmailNotExist && isValidEmail) {
+                request.setAttribute("userEmailExistsMessage", userEmailExistsMessage);
+                request.setAttribute("userEmailExistsHTML", alert);
+            }
+            request.getRequestDispatcher("/WEB-INF/" + jsp + ".jsp").forward(request, response);
+            return false;
+        }
+
+        if (!password.equals(passwordConfirmation)) {
+            request.setAttribute("noPasswordMatchMessage", userPasswordsDoNotMatchMessage);
+            request.setAttribute("noPasswordMatchAlert", alert);
+            request.setAttribute("usersInputEmail", email);
+            request.getRequestDispatcher("/WEB-INF/"+ jsp +".jsp").forward(request, response);
+            return false;
+        }
+        return true;
+    }
 }

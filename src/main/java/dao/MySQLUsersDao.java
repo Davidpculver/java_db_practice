@@ -76,13 +76,29 @@ public class MySQLUsersDao implements Users {
     }
 
 
-    public User updateUser(String email, String userName) {
-        String query = "UPDATE users SET email = ? WHERE username = ?";
+//    public User updateUser(String email, String userName, String password) {
+//        String query = "UPDATE users SET email = ?, password = ? WHERE username = ?";
+//        PreparedStatement stmt = null;
+//        try {
+//            stmt = connection.prepareStatement(query);
+//            stmt.setString(1, email);
+//            stmt.setString(2, password);
+//            stmt.setString(3, userName);
+//            stmt.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error finding a user by user email", e);
+//        }
+//        return null;
+//    }
+
+    public User updateUser(User user) {
+        String query = "UPDATE users SET email = ?, password = ? WHERE username = ?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, email);
-            stmt.setString(2, userName);
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getUsername());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error finding a user by user email", e);
