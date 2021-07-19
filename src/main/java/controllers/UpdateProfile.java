@@ -26,6 +26,9 @@ public class UpdateProfile extends HttpServlet {
         User loggedInUser = (User) request.getSession().getAttribute("user");
         String username = loggedInUser.getUsername();
         request.setAttribute("username", username);
+        String email = loggedInUser.getEmail();
+        request.setAttribute("email", email);
+
         request.getRequestDispatcher("/WEB-INF/updateProfile.jsp")
                 .forward(request, response);
     }
@@ -33,11 +36,12 @@ public class UpdateProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User loggedInUser = (User) request.getSession().getAttribute("user");
+//        User loggedInUser = (User) request.getSession().getAttribute("user");
         String userName = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm_password");
+
 
 //        boolean isValidEmail = VerifyData.isValidEmail(email);
 //        boolean emailDoesNotExist = VerifyData.userEmailNotExist(email);
