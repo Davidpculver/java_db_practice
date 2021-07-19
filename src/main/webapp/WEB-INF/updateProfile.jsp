@@ -8,7 +8,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-
+<div></div>
 <div class="container">
     <h1>Please update your information.</h1>
     <form action="/updateProfile" method="post">
@@ -29,6 +29,9 @@
             <input id="confirm_password" name="confirm_password" class="form-control" type="password">
         </div>
         <input type="submit" class="btn btn-primary btn-block">
+
+
+
     </form>
 </div>
 
