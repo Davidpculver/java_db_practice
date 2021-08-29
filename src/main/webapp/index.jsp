@@ -10,7 +10,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <h1>Welcome to the Adlister!</h1>
-    <h3>This project is in progress...</h3>
+    <h3>This paired programming project is in progress...</h3>
 </div>
 </body>
 </html>
